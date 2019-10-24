@@ -10,7 +10,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
-    rootFolderOrFile: 'EHS.Web/publish_output/'
+    rootFolderOrFile: 'YourProjectFolder/publish_output/'
     includeRootFolder: false
 
 - task: PublishBuildArtifacts@1
