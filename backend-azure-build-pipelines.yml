@@ -1,0 +1,17 @@
+pool:
+  name: Azure Pipelines
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'Build project'
+  inputs:
+    projects: '**/*.csproj'
+    arguments: '--output publish_output --configuration Release'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolderOrFile: 'EHS.Web/publish_output/'
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
