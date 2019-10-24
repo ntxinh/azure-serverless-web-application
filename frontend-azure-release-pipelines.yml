@@ -22,3 +22,11 @@ steps:
     Destination: AzureBlob
     storage: YourStorageAccount
     ContainerName: '$web'
+
+steps:
+- task: AzureCLI@1
+  displayName: 'Azure CDN Cache Purge'
+  inputs:
+    azureSubscription: 
+    scriptLocation: inlineScript
+    inlineScript: 'az cdn endpoint purge -g YourResourceGroup -n YourNameCDNEndpoint --profile-name YourNameCDNProfile --content-paths ''/*'''
