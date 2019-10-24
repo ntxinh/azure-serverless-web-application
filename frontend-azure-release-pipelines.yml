@@ -1,0 +1,24 @@
+steps:
+- task: ExtractFiles@1
+  displayName: 'Extract files '
+  inputs:
+    archiveFilePatterns: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    destinationFolder: '$(System.DefaultWorkingDirectory)/unzip/'
+    
+steps:
+- task: AzureCLI@1
+  displayName: 'Azure Blob Clean'
+  inputs:
+    azureSubscription: 'YourSubscription'
+    scriptLocation: inlineScript
+    inlineScript: 'az storage blob delete-batch --account-name YourStorageAccount --source $web'
+    
+steps:
+- task: AzureFileCopy@2
+  displayName: 'AzureBlob File Copy'
+  inputs:
+    SourcePath: '$(System.DefaultWorkingDirectory)/unzip/build'
+    azureSubscription: 'YourSubscription'
+    Destination: AzureBlob
+    storage: YourStorageAccount
+    ContainerName: '$web'
