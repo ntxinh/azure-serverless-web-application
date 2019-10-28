@@ -1,0 +1,17 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "MSSQLDB_CONNECTION": "Data Source=yourserver;Initial Catalog=yourdb;User ID=youruser;pwd=yourpwd;Integrated Security=False;",
+    "COSMOSDB_CONNECTION": "AccountEndpoint=youruri;AccountKey=yourkey;",
+    "COSMOSDB_URI": "youruri",
+    "COSMOSDB_KEY": "yourkey",
+    "COSMOSDB_DATABASENAME": "yourdb",
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "yourinstrumentationkey"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
+  }
+}
