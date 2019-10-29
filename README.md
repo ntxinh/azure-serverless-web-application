@@ -1,5 +1,8 @@
 # azure-serverless-web-application
-Serverless web application on Azure
+
+**Serverless web application**
+
+![](https://docs.microsoft.com/azure/architecture/reference-architectures/serverless/_images/serverless-web-app.png)
 
 https://github.com/mspnp/serverless-reference-implementation
 
