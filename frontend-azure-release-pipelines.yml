@@ -29,4 +29,4 @@ steps:
   inputs:
     azureSubscription: 
     scriptLocation: inlineScript
-    inlineScript: 'az cdn endpoint purge -g YourResourceGroup -n YourNameCDNEndpoint --profile-name YourNameCDNProfile --content-paths ''/*'''
+    inlineScript: 'az cdn endpoint purge -g YourResourceGroup -n YourNameCDNEndpoint --profile-name YourNameCDNProfile --content-paths "/static/css/*" "/static/js/*"'
