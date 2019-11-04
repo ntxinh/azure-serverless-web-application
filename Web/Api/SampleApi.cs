@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Web.Extensions.Responses;
 using Web.Interfaces;
 using Web.ViewModels;
 
@@ -48,8 +49,14 @@ namespace Web.Api
 
                 // Map one
                 var sampleVm = _mapper.Map<SampleViewModel>(sample);
+                
+                var data = new ApiResponseBuilder<SampleViewModel>()
+                    .StatusCode(200)
+                    .Message("Success")
+                    .Result(sampleVm)
+                    .Build();
 
-                return new OkObjectResult(sampleVm);
+                return new OkObjectResult(data);
             }
             catch (Exception ex)
             {

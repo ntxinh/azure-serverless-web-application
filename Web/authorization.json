@@ -1,0 +1,16 @@
+// {
+//     "routes": [
+//         {
+//             "path_prefix": "/api",
+//             "policies": {
+//                 "unauthenticated_action": "RejectWith401"
+//             }
+//         },
+//         {
+//             "path_prefix": "/runtime/webhooks/EventGrid",
+//             "policies": {
+//                 "unauthenticated_action": "AllowAnonymous"
+//             }
+//         }
+//     ]
+// }
