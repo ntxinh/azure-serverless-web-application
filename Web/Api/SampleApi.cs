@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Web.Interfaces;
 using Web.ViewModels;
 
 namespace Web.Api
@@ -18,17 +19,17 @@ namespace Web.Api
     public class SampleApi : BaseApi
     {
         private readonly ISampleRepository _sampleRepository;
-        private readonly ISampleService _sampleService;
+        private readonly ISampleViewModelService _sampleViewModelService;
         private readonly IMapper _mapper;
         private readonly ITemplateCosmosRepository _templateCosmosRepository;
 
         public SampleApi(ISampleRepository sampleRepository,
-            ISampleService sampleService,
+            ISampleViewModelService sampleViewModelService,
             IMapper mapper,
             ITemplateCosmosRepository templateCosmosRepository)
         {
             _sampleRepository = sampleRepository;
-            _sampleService = sampleService;
+            _sampleViewModelService = sampleViewModelService;
             _mapper = mapper;
             _templateCosmosRepository = templateCosmosRepository;
         }

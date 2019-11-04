@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using Web.Interfaces;
+using Web.Services;
 
 [assembly: FunctionsStartup(typeof(Web.Startup))]
 
@@ -40,7 +41,7 @@ namespace Web
             builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
             builder.Services.AddScoped<ISampleRepository, SampleRepository>();
             builder.Services.AddScoped<ITemplateCosmosRepository, TemplateCosmosRepository>();
-            builder.Services.AddScoped<ISampleService, SampleService>();
+            builder.Services.AddScoped<ISampleViewModelService, SampleViewModelService>();
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Web.Interfaces;
 
-namespace Infrastructure.Services
+namespace Web.Services
 {
-    public class SampleService : ISampleService
+    public class SampleViewModelService: ISampleViewModelService
     {
         private readonly IAsyncRepository<Sample> _sampleRepository;
 
-        public SampleService(IAsyncRepository<Sample> sampleRepository)
+        public SampleViewModelService(IAsyncRepository<Sample> sampleRepository)
         {
             _sampleRepository = sampleRepository;
         }
