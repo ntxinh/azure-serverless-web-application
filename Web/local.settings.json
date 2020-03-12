@@ -8,7 +8,8 @@
     "COSMOSDB_URI": "youruri",
     "COSMOSDB_KEY": "yourkey",
     "COSMOSDB_DATABASENAME": "yourdb",
-    "APPINSIGHTS_INSTRUMENTATIONKEY": "yourinstrumentationkey"
+    "APPINSIGHTS_INSTRUMENTATIONKEY": "yourinstrumentationkey",
+    "BLOB_STORAGE_CONNECTION": "DefaultEndpointsProtocol=https;AccountName=YOUR_ACCOUNT_NAME;AccountKey=YOUR_ACCOUNT_KEY;EndpointSuffix=core.windows.net"
   },
   "Host": {
     "LocalHttpPort": 7071,

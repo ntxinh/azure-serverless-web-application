@@ -9,6 +9,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Web.Extensions.Responses;
@@ -23,16 +24,20 @@ namespace Web.Api
         private readonly ISampleViewModelService _sampleViewModelService;
         private readonly IMapper _mapper;
         private readonly ITemplateCosmosRepository _templateCosmosRepository;
+        private readonly IBlobStorageService _blobStorageService;
 
         public SampleApi(ISampleRepository sampleRepository,
             ISampleViewModelService sampleViewModelService,
             IMapper mapper,
-            ITemplateCosmosRepository templateCosmosRepository)
+            ITemplateCosmosRepository templateCosmosRepository,
+            IBlobStorageService blobStorageService
+        )
         {
             _sampleRepository = sampleRepository;
             _sampleViewModelService = sampleViewModelService;
             _mapper = mapper;
             _templateCosmosRepository = templateCosmosRepository;
+            _blobStorageService = blobStorageService;
         }
 
         [FunctionName("GetSample")]
@@ -173,6 +178,39 @@ namespace Web.Api
                 TelemetryClientWrapper.Instance.TrackException(new System.InvalidOperationException("Background Thread Exception"));
                 throw ex;
             }
+        }
+
+        [FunctionName("UploadFile")]
+        public async Task<IActionResult> UploadFile(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req)
+        {
+            try
+            {
+                var files = req.Form.Files;
+
+                foreach (var formFile in files)
+                {
+                    if (formFile.Length > 0)
+                    {
+                        var fileName = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName;
+                        fileName = fileName.Contains("\\")
+                            ? fileName.Trim('"').Substring(fileName.LastIndexOf("\\", StringComparison.Ordinal) + 1)
+                            : fileName.Trim('"');
+
+                        await _blobStorageService.UploadFromStream("dbbackup", fileName, formFile.OpenReadStream());
+                    }
+                }
+                return new OkObjectResult(new
+                {
+                    Data = "OK"
+                });
+            }
+            catch (Exception ex)
+            {
+                // Track an Exception
+                throw ex;
+            }
+            return new BadRequestObjectResult("");
         }
     }
 }

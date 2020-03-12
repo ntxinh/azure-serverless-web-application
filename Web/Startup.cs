@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Web.Interfaces;
 using Web.Services;
@@ -36,6 +38,12 @@ namespace Web
                 o.InstrumentationKey = Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY");
                 o.TelemetryInitializers.Add(new OperationCorrelationTelemetryInitializer());
             });
+            builder.Services.Configure<BlobStorageOptions>((o) =>
+            {
+                o.ConnectionString = Environment.GetEnvironmentVariable("BLOB_STORAGE_CONNECTION");
+                o.Containers = new Dictionary<string, string> { { "your_container_key", "your_container_name" } };
+            });
+            builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
             // Our services
             builder.Services.AddScoped(typeof(IAsyncRepository<>), typeof(EfRepository<>));
